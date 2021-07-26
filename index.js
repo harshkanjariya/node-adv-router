@@ -23,9 +23,11 @@ module.exports = (options = {}) => {
 		onMissingParam = (param, req, res) => {
 			if (status.missing_param) {
 				res.status(status.missing_param.code);
+				res.statusMessage = status.missing_param.message;
 				res.json(status.missing_param);
 			} else {
 				res.status(400);
+				res.statusMessage = "Missing parameter";
 				res.end();
 			}
 			return false;
@@ -67,6 +69,7 @@ module.exports = (options = {}) => {
 				Object.keys(status).forEach(key => {
 					obj[key] = (data) => {
 						res.status(status[key].code);
+						res.statusMessage = status[key].message;
 						if (!data)
 							data = {};
 						res.json({
