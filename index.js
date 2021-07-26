@@ -79,5 +79,7 @@ module.exports = (options = {}) => {
 				handlers(req, res, next);
 			});
 		},
+		get: router.get,
+		use: router.use,
 	}
 }
