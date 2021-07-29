@@ -58,13 +58,13 @@ module.exports = (options = {}) => {
 			}
 			router.post(path, (req, res, next) => {
 				let isMissing = false;
-				params.forEach((p) => {
+				for (let p of params) {
 					if (missingValidator(req.body[p])) {
 						let val = onMissingParam(p, req, res);
 						isMissing = !val;
+						if (isMissing) return;
 					}
-				});
-				if (isMissing) return;
+				}
 				let obj = {};
 				Object.keys(status).forEach(key => {
 					obj[key] = (data) => {
