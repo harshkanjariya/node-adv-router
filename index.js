@@ -46,7 +46,7 @@ module.exports = (options = {}) => {
 		/**
 		 * @param {{
 		 *     path: String,
-		 *     params: Array<String>
+		 *     params: Array<String>|undefined
 		 * }} opt
 		 * @param {Handlers} handlers
 		 */
