@@ -24,7 +24,7 @@ module.exports = (options = {}) => {
 			if (status.missing_param) {
 				res.status(status.missing_param.code);
 				res.statusMessage = status.missing_param.message;
-				res.json(status.missing_param);
+				res.json({...status.missing_param,name: param});
 			} else {
 				res.status(400);
 				res.statusMessage = "Missing parameter";
@@ -88,11 +88,27 @@ module.exports = (options = {}) => {
 			});
 		},
 		/**
-		 * @param {string} path
+		 * @param {{
+		 *     path: String,
+		 *     query: Array<String>|undefined
+		 * }} opt
 		 * @param {Handlers} handlers
 		 */
-		get: (path,handlers)=>{
-			router.get(path,(req,res,next)=>{
+		get: (opt, handlers) => {
+			let params = opt.query || [];
+			let path = opt.path || '';
+			if (params && !Array.isArray(params)) {
+				throw new Error('require query params must be a type of array.');
+			}
+			router.get(path, (req, res, next) => {
+				let isMissing = false;
+				for (let p of params) {
+					if (missingValidator(req.query[p])) {
+						let val = onMissingParam(p, req, res);
+						isMissing = !val;
+						if (isMissing) return;
+					}
+				}
 				res.sendJson = codes(res);
 				handlers(req, res, next);
 			});

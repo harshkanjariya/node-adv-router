@@ -3,7 +3,7 @@ const app = express();
 
 const router = require('../index')();
 
-router.get('/hello',(req,res)=>{
+router.get({path:'/hello',query:['name']},(req,res)=>{
 	res.sendJson.success({
 		data: 'hii'
 	});
