@@ -5,7 +5,7 @@ module.exports = (options = {}) => {
 			message: 'success'
 		},
 		missing_param: {
-			code: 434,
+			code: 419,
 			message: 'param missing'
 		}
 	}
@@ -33,6 +33,24 @@ module.exports = (options = {}) => {
 			return false;
 		}
 	}
+
+	function codes(res) {
+		let obj = {};
+		Object.keys(status).forEach(key => {
+			obj[key] = (data) => {
+				res.status(status[key].code);
+				res.statusMessage = status[key].message;
+				if (!data)
+					data = {};
+				res.json({
+					...status[key],
+					...data,
+				});
+			};
+		})
+		return obj;
+	}
+
 	return {
 		router,
 		/**
@@ -65,24 +83,20 @@ module.exports = (options = {}) => {
 						if (isMissing) return;
 					}
 				}
-				let obj = {};
-				Object.keys(status).forEach(key => {
-					obj[key] = (data) => {
-						res.status(status[key].code);
-						res.statusMessage = status[key].message;
-						if (!data)
-							data = {};
-						res.json({
-							...status[key],
-							...data,
-						});
-					};
-				})
-				res.sendJson = obj;
+				res.sendJson = codes(res);
 				handlers(req, res, next);
 			});
 		},
-		get: router.get,
+		/**
+		 * @param {string} path
+		 * @param {Handlers} handlers
+		 */
+		get: (path,handlers)=>{
+			router.get(path,(req,res,next)=>{
+				res.sendJson = codes(res);
+				handlers(req, res, next);
+			});
+		},
 		use: router.use,
 	}
 }

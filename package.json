@@ -1,6 +1,6 @@
 {
   "name": "advance-router",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Advanced Router with require parameters and auto response codes.",
   "main": "index.js",
   "scripts": {
