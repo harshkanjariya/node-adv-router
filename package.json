@@ -1,18 +1,18 @@
 {
-  "name": "advance-router",
-  "version": "1.1.2",
-  "description": "Advanced Router with require parameters and auto response codes.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "router",
-    "post"
-  ],
-  "author": "Harsh Kanjariya",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+	"name": "advance-router",
+	"version": "1.1.5",
+	"description": "Advanced Router with require parameters and auto response codes.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"router",
+		"post"
+	],
+	"author": "Harsh Kanjariya",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
 }
