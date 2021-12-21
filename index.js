@@ -35,7 +35,7 @@ function codes(res, status) {
 				data = {};
 			res.json({
 				...status[key],
-				...data,
+				data,
 			});
 		};
 	})
